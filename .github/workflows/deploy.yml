@@ -1,40 +1,60 @@
-name: CI/CD AppComercio
+name: CI/CD
 
 on:
   push:
-    branches: [main]
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
 
 jobs:
-  build-test-and-deploy:
+  build-and-test:
     runs-on: ubuntu-latest
 
-    steps:
-      - name: Checkout repo
-        uses: actions/checkout@v4
+    services:
+      mongodb:
+        image: mongo
+        ports:
+          - 27017:27017
+        options: >-
+          --health-cmd="mongosh --eval 'db.runCommand({ ping: 1 })'" 
+          --health-interval=10s 
+          --health-timeout=5s 
+          --health-retries=5
 
-      - name: Set up Node.js
-        uses: actions/setup-node@v4
+    env:
+      MONGO_URI: mongodb://localhost:27017/testdb
+      NODE_ENV: test
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
         with:
           node-version: 18
           cache: 'pnpm'
 
-      - name: Set up pnpm
-        uses: pnpm/action-setup@v2
-        with:
-          version: 8
-          run_install: false
+      - name: Install pnpm
+        run: npm install -g pnpm
 
       - name: Install dependencies
-        run: pnpm install --frozen-lockfile
-
-      - name: Copy .env.test
-        run: cp .env.test .env
+        run: pnpm install
 
       - name: Run tests
+        env:
+          NODE_ENV: test
+          MONGO_URI: mongodb://localhost:27017/testdb
         run: pnpm test
 
-      - name: Set up Docker Buildx
-        uses: docker/setup-buildx-action@v3
+  deploy:
+    needs: build-and-test
+    runs-on: ubuntu-latest
+    if: github.ref == 'refs/heads/main'
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
 
       - name: Log in to Docker Hub
         uses: docker/login-action@v3
@@ -42,7 +62,8 @@ jobs:
           username: ${{ secrets.DOCKER_USERNAME }}
           password: ${{ secrets.DOCKER_PASSWORD }}
 
-      - name: Build and push Docker image
-        run: |
-          docker build -t fercuche/appcomercio:latest .
-          docker push fercuche/appcomercio:latest
+      - name: Build Docker image
+        run: docker build -t fercuche/appcomercio:latest .
+
+      - name: Push image to Docker Hub
+        run: docker push fercuche/appcomercio:latest
