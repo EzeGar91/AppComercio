@@ -1,0 +1,35 @@
+previews:
+  generation: automatic
+
+services:
+  - type: web
+    name: appcomercio
+    runtime: docker
+    repo: https://github.com/EzeGar91/AppComercio
+    branch: main
+    dockerfilePath: ./dockerfile
+    plan: free
+    autoDeploy: true
+    healthCheckPath: /
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: PORT
+        value: 3001
+      - key: MONGO_URI
+        fromDatabase:
+          name: appcomercio-db
+          property: connectionString
+      - key: SECRET
+        generateValue: true
+
+databases:
+  - name: appcomercio-db
+    plan: free
+    databaseName: appcomercio
+    user: admin
+
+  - name: jwt-database
+    databaseName: auth_secrets
+    user: auth_admin
+    ipAllowList: []
