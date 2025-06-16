@@ -48,7 +48,7 @@ jobs:
         run: pnpm test
 
       - name: Build Docker image
-        run: docker build -t fercuche/appcomercio:latest .
+        run: docker build -t ezegar91/appcomercio:latest .
 
       - name: Log in to Docker Hub
         uses: docker/login-action@v2
@@ -57,4 +57,5 @@ jobs:
           password: ${{ secrets.DOCKER_PASSWORD }}
 
       - name: Push Docker image
-        run: docker push fercuche/appcomercio:latest
+        run: docker push ezegar91/appcomercio:latest
+
