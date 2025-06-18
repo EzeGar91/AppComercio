@@ -1,39 +1,79 @@
 # 🚀 Proyecto App de Comercio con Node.js
 
+Aplicación web desarrollada con Node.js y Express para la gestión de un comercio. Permite autenticación de usuarios, gestión de productos, órdenes y carritos. Integra monitoreo con Prometheus y Grafana, está contenida con Docker y lista para CI/CD con GitHub Actions.
+
 ## *IFTS 29*
-##  Materia: Desarrollo BackEnd
-- **Profesor: Emir Eliezer Garcia Ontiveros**
+##  Materia: Seminario de Actualizacion DevOps
+- **Profesor: Javier Blanco**
 
 ## 📜 Integrantes
 - **Ezequiel Rodolfo Garriga**
 - **Carlos Fernando Maciel**
 - **Cristian Gabriel Sivila**
 
-## 🛠 Tecnología Utilizada
-- **Lenguajes de Programación:**
-  - JavaScript (Node.js)
-- **Frameworks y Librerías:**
-  - **Express.js:** Framework para la creación de la API.
-  - **Mongoose:** ODM para MongoDB.
-  - **Pug:** Motor de plantillas.
-- **Gestión de Autenticación y Seguridad:**
-  - **bcrypt:** Para el hash de contraseñas.
-  - **jsonwebtoken:** Para la creación y verificación de tokens JWT.
-  - **passport:** Middleware de autenticación.
-  - **passport-jwt:** Estrategia de autenticación para JWT.
-  - **passport-local:** Estrategia de autenticación local.
-  - **express-session:** Para gestionar sesiones.
-- **Utilidades:**
-  - **dotenv:** Para la gestión de variables de entorno.
-  - **cookie-parser:** Middleware para analizar cookies.
-  - **http-errors:** Para manejar errores HTTP.
-  - **morgan:** Logger de solicitudes HTTP.
-  - **debug:** Utilidad para debugging.
-  - **tar:** Para gestión de archivos tar.
-- **Servicios y Herramientas:**
-  - **Postman:** Para pruebas de API.
-  - **GitHub:** Para control de versiones.
+## 🚀 Tecnologías utilizadas
 
+### 🧠 Backend
+- Node.js (JavaScript)
+- Express.js – framework web
+- Mongoose – ODM para MongoDB
+
+### 🔐 Autenticación y Seguridad
+- bcrypt / bcryptjs – hash de contraseñas
+- jsonwebtoken – generación y validación de JWT
+- passport – middleware de autenticación
+  - passport-jwt – JWT strategy
+  - passport-local – local strategy
+- express-session – gestión de sesiones
+
+### 🖼️ Vistas
+- Pug – motor de plantillas
+
+### 🔧 Utilidades
+- dotenv – manejo de variables de entorno
+- cookie-parser – manejo de cookies
+- http-errors – gestión de errores HTTP
+- morgan – logger de solicitudes
+- debug – utilitario para debugging
+- tar – manejo de archivos .tar
+
+### 🧪 Testing
+- Jest – pruebas unitarias
+- Supertest – pruebas de endpoints
+
+### 📦 Gestión de paquetes
+- pnpm – gestor de paquetes
+
+### 🐳 Contenedores y despliegue
+- Docker
+- Docker Compose
+- GitHub Actions – CI/CD
+- Render – despliegue automático
+
+### 📊 Observabilidad y monitoreo
+- prom-client – métricas custom en /metrics
+- Prometheus – recolección de métricas
+- Grafana – visualización de métricas
+
+## 📁 Estructura del proyecto
+```
+├── app.js
+├── package.json
+├── Dockerfile
+├── docker-compose.yml
+├── .env
+├── /routes
+├── /controllers
+├── /models
+├── /services
+├── /views
+├── /tests
+├── /config
+│ ├── db.js
+│ └── passport.js
+└── /monitoring
+└── prometheus.yml
+```
 ## 📦 Ejecución del Proyecto
 Para ejecutar el proyecto localmente, sigue los siguientes pasos:
 
@@ -56,22 +96,51 @@ Para ejecutar el proyecto localmente, sigue los siguientes pasos:
    pnpm run dev
    El servidor se ejecutará en http://localhost:3001
 
-5. **Pruebas de la API:** Utiliza ThunderClient o cualquier otra herramienta de pruebas de API para interactuar con los endpoints definidos en la API.
+5. **Usar con Docker**
 
-## 🔗 Endpoints de la API
+Construir y levantar los contenedores:
+docker compose build
+docker compose up -d
 
-Aquí puedes listar los endpoints disponibles en tu API, por ejemplo:
+6. **Monitorieo con Grafana y Prometheus**
 
-GET /api/users - Obtener todos los usuarios (clientes o administradores)
+Acceder:
+App: http://localhost:3001
 
-POST /api/users - Crear un nuevo usuario
+Prometheus: http://localhost:9090
 
-GET /api/products - Obtener un productos por ID
+Grafana: http://localhost:3000
 
-POST /api/products - Crear un nuevo producto
+7. **Ejecutar Tests**
 
-DELETE /api/users/:id - Eliminar un cliente por ID
+Para correr los tests:
+```
+pnpm test
+```
+Tambien se utiliza un entorno separado con variables definidas en .env.test.
 
-## 🔗 Enlace del proyecto en VERCEL
+8. **CI/CD con GitHub Actions**
 
-https://app-comercio-alpha.vercel.app/
+Incluye un workflow que:
+- Instala dependencias con pnpm
+- Corre los tests automáticamente
+- Puede construir y publicar la imagen Docker
+- Soporta despliegue automatizado a Render u otros entornos
+
+9. **Monitoreo con Grafana y Prometheus**
+
+La app expone métricas en /metrics que pueden ser recolectadas por Prometheus. Luego, pueden visualizarse en dashboards de Grafana.
+
+10. 🔗 **Despliegue en Render**
+
+## Enlace del proyecto en RENDER
+
+[https://appcomercio.onrender.com/auth/login](https://appcomercio.onrender.com/auth/login)
+
+##Pipeline de ejecucion.
+
+![image](https://github.com/user-attachments/assets/33d4397a-3b27-45a2-a543-0538a491de20)
+
+![image](https://github.com/user-attachments/assets/a1dc0407-3194-4aa0-b542-fb536f6ae878)
+
+##Conclusiones y Roles del equipo
