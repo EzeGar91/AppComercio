@@ -143,7 +143,7 @@ La app expone métricas en /metrics que pueden ser recolectadas por Prometheus. 
 
 ![image](https://github.com/user-attachments/assets/a1dc0407-3194-4aa0-b542-fb536f6ae878)
 
-## Conclusiones y Roles del equipo
+## Conclusiones
 
 Al inicio del trabajo práctico integrador, nos encontramos con varias dificultades, especialmente porque era la primera vez que aplicábamos muchas de las prácticas de DevOps de manera integral. Sin embargo, a medida que fuimos avanzando, logramos organizarnos y aprender en equipo, lo que nos permitió resolver los desafíos planteados.
 
@@ -151,6 +151,8 @@ Pudimos desarrollar una aplicación web conectada a una base de datos, gestionar
 
 Como aspecto personal a mejorar nos quedo pendiente aplicar Ansible y Terraform para ganar mas experiencia aplicandolo a la practica. Gracias a este proyecto, no solo profundizamos nuestros conocimientos técnicos en herramientas como Docker, GitHub Actions y bases de datos, sino que también fortalecimos nuestra capacidad para trabajar colaborativamente y afrontar un flujo completo de desarrollo y despliegue de software.
 
-FrontEnd Dev y Scrum Master -> Gabriel Sivila
-BackEnd Dev y DevOps -> Fernando Maciel
-QA Tester y DevOps-> Ezequiel Garriga
+## Roles del equipo
+
+- FrontEnd Dev y Scrum Master -> Gabriel Sivila
+- BackEnd Dev y DevOps -> Fernando Maciel
+- QA Tester y DevOps -> Ezequiel Garriga
